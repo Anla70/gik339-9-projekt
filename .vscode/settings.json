@@ -1,0 +1,10 @@
+{
+  "liveServer.settings.port": 5501,
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.wordWrap": "wordWrapColumn",
+  "html.format.wrapAttributes": "force-aligned",
+  "prettier.printWidth": 120,
+  "html.format.wrapLineLength": 120,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
