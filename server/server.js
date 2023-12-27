@@ -20,12 +20,12 @@ server.listen(3000, () => {
 
 // Route för att hämta alla recept från databasen. Resultatet skickas till klienten alt felmeddelande
 server.get("/recipe", (req, res) => {
-  const sql = new sqlite3.Database("./recipe.sql");
+  const db = new sqlite3.Database("./gik339.db");
 
   const query = "SELECT * FROM recipe";
 
-  sql.all(query, (err, rows) => {
-    sql.close();
+  db.all(query, (err, rows) => {
+    db.close();
     if (err) {
       res.status(500).send(err);
     } else {
@@ -36,13 +36,13 @@ server.get("/recipe", (req, res) => {
 
 // Route för att lägga till nya recept
 server.post("/recipe", (req, res) => {
-  const sql = new sqlite3.Database("./recipe.sql");
+  const db = new sqlite3.Database("./gik339.db");
   const recipe = req.body;
   const query =
     "INSERT INTO recipe(recipeName, recipeDescription, recipeIngredients, recipeInstructions, recipeImage) VALUES (?,?,?,?,?)";
 
-  sql.all(query, Object.values(recipe), (err) => {
-    sql.close();
+  db.all(query, Object.values(recipe), (err) => {
+    db.close();
     if (err) {
       res.status(500).send(err);
     } else {
@@ -72,7 +72,7 @@ server.put("/recipe", (req, res) => {
   });
   const query = `UPDATE recipe SET ${updateString} WHERE id=${id}`;
 
-  sql.run(query, (err) => {
+  db.run(query, (err) => {
     if (err) {
       console.log(err);
       res.status(500).send(err);
@@ -87,7 +87,7 @@ server.delete("/recipe/:id", (req, res) => {
   const id = req.params.id;
   const query = `DELETE FROM recipe WHERE id = ${id}`;
 
-  sql.run(query, (err) => {
+  db.run(query, (err) => {
     if (err) {
       console.log(err);
       res.status(500).send(err);

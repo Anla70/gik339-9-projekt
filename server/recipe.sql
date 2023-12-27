@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS recipe (
   ,recipeDescription TEXT NOT NULL
   ,recipeIngredients  TEXT NOT NULL
   ,recipeInstructions TEXT NOT NULL
-  ,recipeImage TEXT
+  ,color
 );
 
 --     "INSERT INTO recipe(recipeName, recipeDescription, recipeIngredients, recipeInstructions, recipeImage) VALUES (?,?,?,?,?)";

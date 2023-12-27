@@ -1,4 +1,11 @@
-:root{
+:root {
   background-color: rgb(32, 145, 145);
+}
 
+.container {
+  background-color: #ffffff;
+}
+
+.rubrik {
+  color: lightcoral;
 }
