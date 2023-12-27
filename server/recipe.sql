@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS recipe (
 -- Förrätt = blue, Varmrätt = green, Efterrätt = yellow
 INSERT INTO recipe (id, recipeName, recipeDescription, recipeIngredients, recipeInstructions, recipeImage, color) VALUES (1,'Kokt ägg','Varmrätt','Ägg ,vatten och salt', 'Koka ägget i 8 min', 'green');
 
-INSERT INTO recipe (id, recipeName, recipeDescription, recipeIngredients, recipeInstructions, recipeImage, color) VALUES (2,'Köttbullar med mos','Varmrätt','1½dl mjölk, 5msk ströbröd, 500g Köttfärs, ½ gul lök, 1 ägg, 1krm peppar, 1tsk salt, ½tsk socker, smör eller margarin, Potatis, mjölk', 'Gör så här: B', 'green');
+INSERT INTO recipe (id, recipeName, recipeDescription, recipeIngredients, recipeInstructions, recipeImage, color) VALUES (2,'Köttbullar med mos','Varmrätt','1½dl mjölk, 5msk ströbröd, 500g Köttfärs, ½ gul lök, 1 ägg, 1krm peppar, 1tsk salt, ½tsk socker, smör eller margarin, Potatis, mjölk', 'Gör så här: Blanda mjölk och ströbröd. Låt svälla i 10 minuter. Tillsätt färs, lök, ägg, salt, peppar och socker i ströbrödsblandningen. Arbeta ihop färsen ordentligt. Fukta händerna med kallt vatten och forma köttbullar. Stek några i taget i matfett, skaka pannan då och då så att köttbullarna rullar runt och håller sig runda. Skala potatis och koka den. När de är färdigkokta, tillsätt mjölk och lite salt och mosa potatisarna till en jämn yta', 'green');
 
 INSERT INTO recipe (id, recipeName, recipeDescription, recipeIngredients, recipeInstructions, recipeImage, color) VALUES (3,'Sockerkaka','Efterrätt','2 Ägg, 2dl Socker, 2dl Mjöl, 1dl Mjölk, 1msk Bakpulver, 1msk Vaniljsocker','Gör så här: Häll i ingredienserna i en bunke, vispa till en smet, smöra och bröda en form, häll i smeten i formen och ställ in i ugnen på 185 grader i 10 minuter', 'yellow');
 

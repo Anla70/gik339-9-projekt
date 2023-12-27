@@ -8,11 +8,10 @@ fetch(url)
     users.forEach((recipe) => {
       const recipeList = document.createElement("li");
 
-      recipeList.innerHTML = `<p>Name: ${recipe.recipeName}  ${recipe.recipeDescription}
-      <br> Username: ${user.username} <br>Favorit color: ${user.color} </p>`;
+      recipeList.innerHTML = `<p>Name: ${recipe.recipeName}</p>`;
       console.log(user);
 
-      userList.appendChild(recipeList);
+      recipeList.appendChild(recipeList);
     });
-    document.body.appendChild(userList);
+    document.body.appendChild(recipeList);
   });
