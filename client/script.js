@@ -18,10 +18,11 @@ const url = "http://localhost:3000/recipe";
 
 fetch(url)
   .then((response) => response.json())
-  .then((recipe) => {
+  .then((recipes) => {
+    console.log(recipes);
     const recipeList = document.createElement("ul");
 
-    recipe.forEach((recipe) => {
+    recipes.forEach((recipe) => {
       const recipeList = document.createElement("li");
       listItem.style.borderColor = recipe.color;
 
@@ -29,7 +30,7 @@ fetch(url)
       <br> Description: ${recipe.recipeDescription} <br>Färg: ${recipe.color} </p>`;
       console.log(recipe);
 
-      recipeList.appendChild(recipeList);
+      recipeList.appendChild(listItem);
     });
     document.body.appendChild(recipeList);
   });
