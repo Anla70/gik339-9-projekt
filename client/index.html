@@ -8,14 +8,27 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
   </head>
   <body>
-    <h2 class="rubrik">Recept</h2>
+    <h2 class="headLine">Recept</h2>
     <div class="form-container">
       <form id="addRecipeForm">
         <h3 class="Add">Lägg till ett nytt recept</h3>
+
         <input type="text" id="recipeName" placeholder="Receptnamn" required />
-        <input type="text" id="recipeDescription" placeholder="Beskrivning" required />
+
         <textarea id="recipeIngredients" placeholder="Ingredienser" required></textarea>
         <textarea id="recipeInstructions" placeholder="Instruktioner" required></textarea>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="RadioStarter" />
+          <label class="form-check-label" for="flexRadioDefault1"> Förrätt </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="RadioMain" />
+          <label class="form-check-label" for="flexRadioDefault2"> Varmrätt </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="RadioDessert" checked />
+          <label class="form-check-label" for="flexRadioDefault3"> Efterrätt </label>
+        </div>
         <button type="submit">Lägg till recept</button>
       </form>
     </div>

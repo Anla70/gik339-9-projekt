@@ -23,7 +23,7 @@ server.get("/recipe", (req, res) => {
   const query = "SELECT * FROM recipe";
 
   db.all(query, (err, rows) => {
-    //db.close(); // stänger av den för att den kan skapa problem för efterkommand eanrop
+    //db.close(); // stänger av den för att den kan skapa problem för efterkommande anrop
     if (err) {
       res.status(500).send(err);
     } else {

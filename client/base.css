@@ -6,13 +6,7 @@ body {
   background-color: rgb(241, 241, 241);
 }
 
-.form-container {
-  margin: auto;
-  width: 50%;
-  border: 3px;
-}
-
-.rubrik {
+.headLine {
   font-size: 2rem;
   color: lightcoral;
   text-align: center;
@@ -38,9 +32,10 @@ li {
 }
 
 .form-container {
-  width: 50rem;
-  margin: 20px;
+  width: 50%;
+  margin: auto;
   padding: 15px;
+  border: 3px;
   background-color: rgb(241, 241, 241);
 }
 
