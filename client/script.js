@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 const url = "http://localhost:3000/recipe";
+=======
+const url = "http://localhost:5000/recipe";
+>>>>>>> 0a8c13dbeaaf7d2f130fbf77f5a78a7b2ccd3697
 
 document.addEventListener("DOMContentLoaded", function () {
   fetchAndDisplayRecipes();
@@ -7,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
+<<<<<<< HEAD
     const newRecipe = {
       recipeName: document.getElementById("recipeName").value,
       recipeDescription: document.getElementById("recipeDescription").value,
@@ -14,6 +19,30 @@ document.addEventListener("DOMContentLoaded", function () {
       recipeInstructions: document.getElementById("recipeInstructions").value,
     };
 
+=======
+    const recipeType = document.querySelector('input[name="recipeType"]:checked').value;
+    let color;
+    switch (recipeType) {
+      case "Förrätt":
+        color = "rgba(156, 197, 160, 0.815)";
+        break;
+      case "Varmrätt":
+        color = "rgba(60, 109, 45, 0.815)";
+        break;
+      case "Efterrätt":
+        color = "rgba(224, 213, 150, 0.815)";
+        break;
+    }
+
+    const newRecipe = {
+      recipeName: document.getElementById("recipeName").value,
+      recipeDescription: recipeType,
+      recipeIngredients: document.getElementById("recipeIngredients").value,
+      recipeInstructions: document.getElementById("recipeInstructions").value,
+      color: color,
+    };
+
+>>>>>>> 0a8c13dbeaaf7d2f130fbf77f5a78a7b2ccd3697
     fetch(url, {
       method: "POST",
       headers: {
@@ -30,7 +59,10 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Error:", error);
       });
 
+<<<<<<< HEAD
     // Rensa formuläret efter inskickning
+=======
+>>>>>>> 0a8c13dbeaaf7d2f130fbf77f5a78a7b2ccd3697
     form.reset();
   });
 });
@@ -46,7 +78,11 @@ function fetchAndDisplayRecipes() {
       recipes.forEach((recipe) => {
         const listItem = document.createElement("li");
         listItem.style.borderTop = "2rem solid";
+<<<<<<< HEAD
         listItem.style.borderTopColor = recipe.recipeColor;
+=======
+        listItem.style.borderTopColor = recipe.color;
+>>>>>>> 0a8c13dbeaaf7d2f130fbf77f5a78a7b2ccd3697
 
         listItem.innerHTML = `<p><b>ID:</b> ${recipe.id}</p>
         <p><b>Beskrivning:</b> ${recipe.recipeDescription}</p>
