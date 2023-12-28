@@ -2,7 +2,7 @@
 // samt skapar en ny instans av express.js
 const express = require("express");
 const server = express();
-const port = 3000;
+const port = 5000;
 const sqlite = require("sqlite3").verbose();
 const db = new sqlite.Database("./gik339.db");
 
