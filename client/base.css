@@ -6,9 +6,16 @@ body {
   background-color: rgb(241, 241, 241);
 }
 
+.form-container {
+  margin: auto;
+  width: 50%;
+  border: 3px;
+}
+
 .rubrik {
   font-size: 2rem;
   color: lightcoral;
+  text-align: center;
 }
 
 ul {
@@ -17,6 +24,11 @@ ul {
   padding: 0;
   overflow: hidden;
 }
+
+.add {
+  text-align: center;
+}
+
 li {
   box-sizing: border-box;
   width: 50rem;
