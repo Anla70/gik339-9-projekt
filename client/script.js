@@ -1,57 +1,88 @@
-const url = "http://localhost:5500/recipe";
+const url = "http://localhost:3000/recipe";
 
-fetch(url)
-  .then((response) => response.json())
-  .then((recipes) => {
-    console.log(recipes);
-    const recipeList = document.createElement("ul");
+document.addEventListener("DOMContentLoaded", function () {
+  fetchAndDisplayRecipes();
 
-    recipes.forEach((recipe) => {
-      const recipeList = document.createElement("li");
-      listItem.style.borderColor = recipe.color;
+  const form = document.getElementById("addRecipeForm");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-      listItem.innerHTML = `<p>ID: ${recipe.id} <br> Name: ${recipe.recipeName} ${recipe.recipeIngredients}
-      <br> Description: ${recipe.recipeDescription} <br>Färg: ${recipe.color} </p>`;
-      console.log(recipe);
+    const newRecipe = {
+      recipeName: document.getElementById("recipeName").value,
+      recipeDescription: document.getElementById("recipeDescription").value,
+      recipeIngredients: document.getElementById("recipeIngredients").value,
+      recipeInstructions: document.getElementById("recipeInstructions").value,
+    };
 
-      recipeList.appendChild(listItem);
-    });
-    document.body.appendChild(recipeList);
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newRecipe),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        fetchAndDisplayRecipes(); // Uppdatera receptlistan
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+    // Rensa formuläret efter inskickning
+    form.reset();
   });
+});
+
+function fetchAndDisplayRecipes() {
+  fetch(url)
+    .then((response) => response.json())
+    .then((recipes) => {
+      console.log(recipes);
+      const recipeList = document.createElement("ul");
+      recipeList.innerHTML = ""; // Rensa tidigare recept
+
+      recipes.forEach((recipe) => {
+        const listItem = document.createElement("li");
+        listItem.style.borderTop = "2rem solid";
+        listItem.style.borderTopColor = recipe.recipeColor;
+
+        listItem.innerHTML = `<p><b>ID:</b> ${recipe.id}</p>
+        <p><b>Beskrivning:</b> ${recipe.recipeDescription}</p>
+        <p><b>Recept:</b> ${recipe.recipeName}</p>
+        <p><b>Ingredienser:</b> ${recipe.recipeIngredients}</p>
+        <p><b>Instruktioner:</b> ${recipe.recipeInstructions}</p>`;
+        console.log(recipe);
+        recipeList.appendChild(listItem);
+      });
+
+      const container = document.querySelector(".container");
+      container.innerHTML = ""; // Rensa befintligt innehåll
+      container.appendChild(recipeList);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+// const url = "http://localhost:5500/recipe";
 
 // fetch(url)
 //   .then((response) => response.json())
-//   .then((recipe) => {
-//     const grid = document.createElement("div");
-//     grid.className = "grid";
+//   .then((recipes) => {
+//     console.log(recipes);
+//     const recipeList = document.createElement("ul");
 
-//     recipe.forEach((recipe, index) => {
-//       // Skapar en div för varje användare som kommer att innehålla både etiketten och användarens detaljer
-//       const userDiv = document.createElement("div");
-//       userDiv.className = "grid-item";
+//     recipes.forEach((recipe) => {
+//       const recipeList = document.createElement("li");
+//       listItem.style.borderColor = recipe.color;
 
-//       // Skapar en etikett för varje användare och nummer
-//       const memberLabel = document.createElement("div");
-//       memberLabel.className = "member-label";
-//       memberLabel.innerHTML = `Member<br>#${index + 1}`; // Sätter Member och #, vi har index som börjar på 0 och ökar med 1 för varje användare
+//       listItem.innerHTML = `<p>ID: ${recipe.id} <br> Name: ${recipe.recipeName} ${recipe.recipeIngredients}
+//       <br> Description: ${recipe.recipeDescription} <br>Färg: ${recipe.color} </p>`;
+//       console.log(recipe);
 
-//       // Skapar en div för användarens namn och användarnamn
-//       const userInfo = document.createElement("div");
-//       userInfo.className = "user-info";
-//       // Sätter in användarens namn och användarnamn i userInfo
-//       userInfo.innerHTML = `<p>${user.firstName} ${user.lastName}<br>Username: ${user.username}</p>`;
-//       userInfo.style.backgroundColor = user.color; // Sätter bakgrundsfärgen på userInfo till användarens färg
-
-//       // Skapar en etikett för varje användare
-//       userDiv.appendChild(memberLabel);
-//       userDiv.appendChild(userInfo);
-
-//       // Lägger till userDiv till i griden
-//       grid.appendChild(userDiv);
+//       recipeList.appendChild(listItem);
 //     });
-//     // Hämtar container från index.html och lägger till griden där
-//     document.querySelector(".container").appendChild(grid);
-//   })
-//   .catch((error) => {
-//     console.error("Error fetching users:", error);
+//     document.body.appendChild(recipeList);
 //   });
