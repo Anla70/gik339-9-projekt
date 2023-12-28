@@ -2,7 +2,8 @@
 // samt skapar en ny instans av express.js
 const express = require("express");
 const server = express();
-const sqlite3 = require("sqlite3");
+const sqlite3 = require("sqlite3").verbose();
+const port = 5500;
 
 // konfar serven för att hantera JSON-data samt URL-data
 server.use(express.json()).use(express.urlencoded({ extended: false }));
@@ -14,8 +15,8 @@ server.use((req, res, next) => {
 });
 
 // Startar serven på port 3000, när serven är igång skrivs medelande ut
-server.listen(3000, () => {
-  console.log("Server is running on http://localhost:3000 ");
+server.listen(port, () => {
+  console.log("Server is running on http://localhost:5500 ");
 });
 
 // Route för att hämta alla recept från databasen. Resultatet skickas till klienten alt felmeddelande
@@ -39,7 +40,7 @@ server.post("/recipe", (req, res) => {
   const db = new sqlite3.Database("./gik339.db");
   const recipe = req.body;
   const query =
-    "INSERT INTO recipe(recipeName, recipeDescription, recipeIngredients, recipeInstructions, recipeImage) VALUES (?,?,?,?,?)";
+    "INSERT INTO recipe(recipeName, recipeDescription, recipeIngredients, recipeInstructions, color) VALUES (?,?,?,?,?)";
 
   db.all(query, Object.values(recipe), (err) => {
     db.close();
@@ -61,7 +62,7 @@ server.put("/recipe", (req, res) => {
     recipeDescription: bodyData.recipeDescription,
     recipeIngredients: bodyData.recipeIngredients,
     recipeInstructions: bodyData.recipeInstructions,
-    recipeImage: bodyData.recipeImage,
+    recipeColor: bodyData.recipeColor,
   };
 
   let updateString = "";
