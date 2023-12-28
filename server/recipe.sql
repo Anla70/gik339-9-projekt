@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS recipe (
   ,recipeDescription TEXT NOT NULL
   ,recipeIngredients  TEXT NOT NULL
   ,recipeInstructions TEXT NOT NULL
-  ,recipeColor TEXT NOT NULL  /* kolla upp om vi behöver ha den till not null och om det ska vara text eller inte */
+  ,recipeColor TEXT
 );
 
 --     "INSERT INTO recipe(recipeName, recipeDescription, recipeIngredients, recipeInstructions, recipeImage) VALUES (?,?,?,?,?)";
@@ -19,6 +19,5 @@ INSERT INTO recipe (id, recipeName, recipeDescription, recipeIngredients, recipe
 INSERT INTO recipe (id,recipeName, recipeDescription, recipeIngredients, recipeInstructions, recipeColor) VALUES (4,'Crepes med räkfyllning','Förrätt','Vetmjöl, Salt, Mjölk, Ägg, Smör, Fyllning: Skalade räkor, Purjolök, Creme Fraiche, Citron, Finhackad färsk dill, Riven prästost', 'Gör så hör: Vispa samman mjöl och salt med häften av mjölken till en jämn smet. Vispa i resten av mjölken och äggen. Smält smöret och rör ner det i smeten. Hacka purjolök fint. Blanda samman ingredienserna till fyllningen. Ställ åt sidan. Stek 8 stora eller 16 små pannkakor. Sätt ugnen på 225°. Låt svalna. Fördela fyllningen på pannkakorna, rulla ihop och lägg dem i en ugnssäker form. Strö över osten och gratinera i övre delen av ugnen ca 10 min.','blue');
 
 INSERT INTO recipe (id, recipeName, recipeDescription, recipeIngredients, recipeInstructions, recipeColor) VALUES (5,'Chokladbollar','Efterrätt','100g Smör, 1,5dl Socker, 1msk Vaniljsocker, 4dl Havregryn, 3msk Kakao, 3msk Kallt starkt kaffe, Topping: Pärlsocker eller kokos', 'Gör så här: Blanda ingredienserna i en bunke, vispa eller knåda ingredienserna till en kladdig massa, rulla dem till runda bollar och doppa dem i pärlsocker eller kokos, lägg in i kylen och sedan är de redo att serveras','yellow');
-
 
 select * from recipe ;

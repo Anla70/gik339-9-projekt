@@ -15,13 +15,13 @@ server.use((req, res, next) => {
 	res.header("Access-Control-Allow-Headers", "*");
 	res.header("Access-Control-Allow-Methods", "*");
 	next();
-});
-
+});  
+    
 // Route för att hämta alla recept från databasen. Resultatet skickas till klienten alt felmeddelande
-
+  
 server.get("/recipe", (req, res) => {
 	const query = "SELECT * FROM recipe";
-
+ 
 	db.all(query, (err, rows) => {
 		//db.close(); // stänger av den för att den kan skapa problem för efterkommand eanrop
 		if (err) {
