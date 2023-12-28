@@ -16,8 +16,8 @@ server.use((req, res, next) => {
 	res.header("Access-Control-Allow-Methods", "*");
 	next();
 });  
-    
-// Route för att hämta alla recept från databasen. Resultatet skickas till klienten alt felmeddelande
+      
+// Route för att hämta alla recept frå n databasen. Resultatet skickas till klienten alt felmeddelande
   
 server.get("/recipe", (req, res) => {
 	const query = "SELECT * FROM recipe";

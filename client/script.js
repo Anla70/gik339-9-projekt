@@ -1,7 +1,5 @@
 const url = "http://localhost:3000/recipe";
 
-
-
 document.addEventListener("DOMContentLoaded", function () {
 	fetchAndDisplayRecipes();
 
@@ -41,19 +39,17 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 });
 
-
 function getColorForRecipeType(description) {
-  if (description.includes("Förrätt")) {
-    return "green"; // Exempel på färg för förrätter
-  } else if (description.includes("Varmrätt")) {
-    return "red"; // Exempel på färg för varmrätter
-  } else if (description.includes("Dessert")) {
-    return "blue"; // Exempel på färg för desserter
-  } else {
-    return "gray"; // Standardfärg om ingen typ matchar
-  }
+	if (description.includes("Förrätt")) {
+		return "green"; // Exempel på färg för förrätter
+	} else if (description.includes("Varmrätt")) {
+		return "red"; // Exempel på färg för varmrätter
+	} else if (description.includes("Efterrätt")) {
+		return "blue"; // Exempel på färg för desserter
+	} else {
+		return "gray"; // Standardfärg om ingen typ matchar
+	}
 }
-
 
 function fetchAndDisplayRecipes() {
 	fetch(url)
@@ -63,14 +59,13 @@ function fetchAndDisplayRecipes() {
 			console.log(recipes);
 			const recipeList = document.createElement("ul");
 
-
 			recipeList.innerHTML = ""; // Rensa tidigare recept
-	  recipes.forEach((recipe) => {
-            const listItem = document.createElement("li");
-            const color = getColorForRecipeType(recipe.recipeDescription);
-            listItem.style.borderTop = "2rem solid";
-            listItem.style.borderTopColor = color;
-            listItem.innerHTML = `
+			recipes.forEach((recipe) => {
+				const listItem = document.createElement("li");
+				const color = getColorForRecipeType(recipe.recipeDescription);
+				listItem.style.borderTop = "2rem solid";
+				listItem.style.borderTopColor = color;
+				listItem.innerHTML = `
                 <p><b>ID:</b> ${recipe.id}</p>
                 <p><b>Beskrivning:</b> ${recipe.recipeDescription}</p>
                 <p><b>Recept:</b> ${recipe.recipeName}</p>
