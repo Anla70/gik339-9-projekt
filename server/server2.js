@@ -1,14 +1,15 @@
+// Importerar express.js och sqlite3-modulen
+// samt skapar en ny instans av express.js
 const express = require("express");
 const server = express();
-const port = 3000;
+const port = 5000;
 const sqlite = require("sqlite3").verbose();
 const db = new sqlite.Database("./gik339.db");
 
-// Middleware för att hantera JSON-data och URL-kodade data
-server.use(express.json());
-server.use(express.urlencoded({ extended: false }));
+// Konfigurerar servern för att hantera JSON-data samt URL-data
 
-// CORS-headers för att tillåta förfrågningar från andra ursprung
+server.use(express.json()).use(express.urlencoded({ extended: false }));
+
 server.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "*");
@@ -16,74 +17,96 @@ server.use((req, res, next) => {
   next();
 });
 
-// Starta servern
-server.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+// Route för att hämta alla recept frå n databasen. Resultatet skickas till klienten alt felmeddelande
 
-// Route för att hämta alla recept
 server.get("/recipe", (req, res) => {
-  db.all("SELECT * FROM recipe", (err, rows) => {
+  const query = "SELECT * FROM recipe";
+
+  db.all(query, (err, rows) => {
+    //db.close(); // stänger av den för att den kan skapa problem för efterkommande anrop
     if (err) {
-      res.status(500).send(err.message);
+      res.status(500).send(err);
     } else {
       res.send(rows);
     }
   });
 });
 
-// Route för att hämta ett specifikt recept
-server.get("/recipe/:id", (req, res) => {
-  db.get("SELECT * FROM recipe WHERE id = ?", req.params.id, (err, row) => {
-    if (err) {
-      res.status(500).send(err.message);
-    } else {
-      res.send(row);
-    }
-  });
-});
+// Route för att lägga till nya recept
 
-// Route för att lägga till ett nytt recept
 server.post("/recipe", (req, res) => {
-  const { recipeName, recipeDescription, recipeIngredients, recipeInstructions } = req.body;
-  db.run(
-    "INSERT INTO recipe (recipeName, recipeDescription, recipeIngredients, recipeInstructions) VALUES (?, ?, ?, ?)",
-    [recipeName, recipeDescription, recipeIngredients, recipeInstructions],
-    function (err) {
-      if (err) {
-        res.status(500).send(err.message);
-      } else {
-        res.status(200).send({ message: "Receptet sparades", id: this.lastID });
-      }
-    }
-  );
-});
+  const recipe = req.body;
 
-// Route för att uppdatera ett recept
-server.put("/recipe/:id", (req, res) => {
-  const { recipeName, recipeDescription, recipeIngredients, recipeInstructions } = req.body;
-  db.run(
-    "UPDATE recipe SET recipeName = ?, recipeDescription = ?, recipeIngredients = ?, recipeInstructions = ? WHERE id = ?",
-    [recipeName, recipeDescription, recipeIngredients, recipeInstructions, req.params.id],
-    function (err) {
-      if (err) {
-        res.status(500).send(err.message);
-      } else {
-        res.send({ message: "Receptet uppdaterades" });
-      }
-    }
-  );
-});
+  const query =
+    "INSERT INTO recipe(recipeName, recipeDescription, recipeIngredients, recipeInstructions, recipeImage) VALUES (?,?,?,?,?)";
 
-// Route för att ta bort ett recept
-server.delete("/recipe/:id", (req, res) => {
-  db.run("DELETE FROM recipe WHERE id = ?", req.params.id, function (err) {
+  db.all(query, Object.values(recipe), (err) => {
+    db.close();
+
     if (err) {
-      res.status(500).send(err.message);
+      res.status(500).send(err);
     } else {
-      res.send({ message: "Receptet är borttaget" });
+      res.send("Receptet sparades");
     }
   });
+});
+
+// Route för att uppdatera befintliga recept
+
+server.put("/recipe", (req, res) => {
+  const bodyData = req.body;
+
+  const id = bodyData.id;
+
+  const recipeData = {
+    recipeName: bodyData.recipeName,
+    recipeDescription: bodyData.recipeDescription,
+    recipeIngredients: bodyData.recipeIngredients,
+    recipeInstructions: bodyData.recipeInstructions,
+    recipeImage: bodyData.recipeImage,
+  };
+
+  let updateString = "";
+
+  const columnsArray = Object.keys(recipeData);
+
+  columnsArray.forEach((column, i) => {
+    updateString += `${column}="${recipe[column]}"`;
+
+    if (i !== columnsArray.length - 1) updateString += ",";
+  });
+
+  const query = `UPDATE recipe SET ${updateString} WHERE id=${id}`;
+
+  db.run(query, (err) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.send("Receptet uppdaterades");
+    }
+  });
+});
+
+// Route för att ta bort befintligt valt recept via id
+
+server.delete("/recipe/:id", (req, res) => {
+  const id = req.params.id;
+
+  const query = `DELETE FROM recipe WHERE id = ${id}`;
+
+  db.run(query, (err) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.send("Receptet är borttaget");
+    }
+  });
+});
+
+// Startar servern på valt portnummer (variabeln port) och skriver ut meddelande när servern är igång
+
+server.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
 
 // // Importerar express.js och sqlite3-modulen

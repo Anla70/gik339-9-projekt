@@ -9,33 +9,68 @@
   </head>
   <body>
     <h2 class="headLine">Recept</h2>
+    <!-- Formulär för att lägga till ett nytt recept -->
     <div class="form-container">
       <form id="addRecipeForm">
         <h3 class="Add">Lägg till ett nytt recept</h3>
-
+        <!-- Inmatningsfält för receptnamn -->
         <input type="text" id="recipeName" placeholder="Receptnamn" required />
-
+        <!-- Inmatningsfält för ingredienser -->
         <textarea id="recipeIngredients" placeholder="Ingredienser" required></textarea>
+        <!-- Inmatningsfält för instruktioner -->
         <textarea id="recipeInstructions" placeholder="Instruktioner" required></textarea>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="flexRadioDefault" id="RadioStarter" />
-          <label class="form-check-label" for="flexRadioDefault1"> Förrätt </label>
+        <!-- Radioknappar för att välja typ av recept (Förrätt, Varmrätt, Efterrätt) -->
+        <div class="row">
+          <div class="col">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="RadioStarter" value="Förrätt" />
+              <label class="form-check-label" for="RadioStarter">Förrätt</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="RadioMain" value="Varmrätt" />
+              <label class="form-check-label" for="RadioMain">Varmrätt</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="RadioDessert" value="Efterrätt" />
+              <label class="form-check-label" for="RadioDessert">Efterrätt</label>
+            </div>
+          </div>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="flexRadioDefault" id="RadioMain" />
-          <label class="form-check-label" for="flexRadioDefault2"> Varmrätt </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="flexRadioDefault" id="RadioDessert" checked />
-          <label class="form-check-label" for="flexRadioDefault3"> Efterrätt </label>
-        </div>
-        <button type="submit" id="submit">Lägg till nytt recept</button>
+        <!-- Knapp för att skicka in receptet -->
+        <button type="submit" id="submitRecipeBtn" class="btn btn-primary">Lägg till recept</button>
+        <!-- Container för att visa listan med recept -->
+        <div class="container"></div>
       </form>
     </div>
-    <div class="container"></div>
+
+    <!-- JavaScript-fil för att hantera frontend-logik -->
     <script src="script.js"></script>
   </body>
 </html>
+
+<!-- <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="RadioStarter" value="Förrätt" />
+          <label class="form-check-label" for="RadioStarter"> Förrätt </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="RadioMain" value="Varmrätt" />
+          <label class="form-check-label" for="RadioMain"> Varmrätt </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="flexRadioDefault"
+            id="RadioDessert"
+            value="Efterrätt"
+            checked
+          />
+          <label class="form-check-label" for="RadioDessert"> Efterrätt </label>
+        </div> -->
 
 <!-- <!DOCTYPE html>
 <html lang="en">
