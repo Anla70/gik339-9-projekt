@@ -46,8 +46,6 @@ document.getElementById("addRecipeForm").addEventListener("submit", function (e)
       .then((data) => {
         console.log("Success:", data);
         fetchAndDisplayRecipes();
-        var myModal = new bootstrap.Modal(document.getElementById("exampleModal"));
-        myModal.show();
       })
       .catch((error) => console.error("Error:", error));
   }
