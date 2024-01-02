@@ -4,8 +4,12 @@ const url = "http://localhost:3000/recipe";
 // Variabler för att hantera uppdatering av våra recept
 let isUpdating = false;
 let updatingRecipeId = null;
-
-// Lyssnae på submit-händelsen i formuläret för att lägga till recept
+// Funktion för att visa modalen för uppdaterat recept
+function showUpdateModal() {
+  var updateModal = new bootstrap.Modal(document.getElementById("updateModal"));
+  updateModal.show();
+}
+// Lyssnar på submit-händelsen i formuläret för att lägga till recept
 document.getElementById("addRecipeForm").addEventListener("submit", function (e) {
   e.preventDefault(); // Förhindrar standardformulärhantering
 
@@ -31,8 +35,9 @@ document.getElementById("addRecipeForm").addEventListener("submit", function (e)
         isUpdating = false;
         updatingRecipeId = null;
         fetchAndDisplayRecipes(); // Funktion som uppdaterar receptlistan
-        var myModal = new bootstrap.Modal(document.getElementById("exampleModal"));
-        myModal.show();
+        /* var myModal = new bootstrap.Modal(document.getElementById("exampleModal"));
+        myModal.show(); */
+        showUpdateModal(); // *** Istället för den ovan - ligger i html-filen
       })
       .catch((error) => console.error("Error:", error));
   } else {
