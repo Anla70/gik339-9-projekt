@@ -31,6 +31,8 @@ document.getElementById("addRecipeForm").addEventListener("submit", function (e)
         isUpdating = false;
         updatingRecipeId = null;
         fetchAndDisplayRecipes(); // Funktion som uppdaterar receptlistan
+        var myModal = new bootstrap.Modal(document.getElementById("exampleModal"));
+        myModal.show();
       })
       .catch((error) => console.error("Error:", error));
   } else {
@@ -44,6 +46,8 @@ document.getElementById("addRecipeForm").addEventListener("submit", function (e)
       .then((data) => {
         console.log("Success:", data);
         fetchAndDisplayRecipes();
+        var myModal = new bootstrap.Modal(document.getElementById("exampleModal"));
+        myModal.show();
       })
       .catch((error) => console.error("Error:", error));
   }
@@ -136,35 +140,3 @@ function getColorForRecipeType(description) {
 
 // Laddar receptlistan när sidan laddas
 window.onload = fetchAndDisplayRecipes;
-
-// const url = "http://localhost:5500/recipe";
-
-// fetch(url)
-
-//   .then((response) => response.json())
-
-//   .then((recipes) => {
-
-//     console.log(recipes);
-
-//     const recipeList = document.createElement("ul");
-
-//     recipes.forEach((recipe) => {
-
-//       const recipeList = document.createElement("li");
-
-//       listItem.style.borderColor = recipe.color;
-
-//       listItem.innerHTML = `<p>ID: ${recipe.id} <br> Name: ${recipe.recipeName} ${recipe.recipeIngredients}
-
-//       <br> Description: ${recipe.recipeDescription} <br>Färg: ${recipe.color} </p>`;
-
-//       console.log(recipe);
-
-//       recipeList.appendChild(listItem);
-
-//     });
-
-//     document.body.appendChild(recipeList);
-
-//   });
