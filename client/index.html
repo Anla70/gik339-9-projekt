@@ -10,6 +10,7 @@
   <body>
     <div class="form-section mt-5">
       <h2 class="headLine mb-4 fw-bold">Recept</h2>
+
       <div class="row justify-content-center">
         <!-- Här justerar vi bredden på formulär och recept (samma bredd) -->
         <div class="col-md-5">
@@ -18,15 +19,15 @@
             <form id="addRecipeForm">
               <h3 class="Add mb-4">Lägg till ett nytt recept</h3>
               <!-- Inmatningsfält för receptnamn -->
-              <input type="text" id="recipeName" placeholder="Receptnamn" required />
+              <input type="text" id="recipeName" class="mb-2" placeholder="Receptnamn" required />
               <!-- Inmatningsfält för ingredienser -->
-              <textarea id="recipeIngredients" placeholder="Ingredienser" required></textarea>
+              <textarea id="recipeIngredients" class="mb-2" placeholder="Ingredienser" required></textarea>
               <!-- Inmatningsfält för instruktioner -->
               <textarea id="recipeInstructions" class="mb-4" placeholder="Instruktioner" required></textarea>
               <!-- Radioknappar för att välja typ av recept (Förrätt, Varmrätt, Efterrätt) -->
-              <div class="row">
+              <div class="row mb-4">
                 <div class="col">
-                  <div class="form-check form-check-inline mb-3">
+                  <div class="form-check form-check-inline">
                     <input
                       class="form-check-input"
                       type="radio"
@@ -64,10 +65,10 @@
               </div>
 
               <!-- Knapp för att lägga till recept -->
-              <button type="submit" id="submitRecipeBtn" class="btn btn-primary w-10 mb-5">Lägg till recept</button>
+              <button type="submit" id="submitRecipeBtn" class="btn btn-primary mb-5">Lägg till recept</button>
 
               <!-- Knapp för att uppdatera recept, initialt dold -->
-              <button type="submit" id="updateRecipeBtn" class="btn btn-primary w-10 mb-5" style="display: none">
+              <button type="submit" id="updateRecipeBtn" class="btn btn-primary mb-5" style="display: none">
                 Uppdatera dina ändringar
               </button>
 

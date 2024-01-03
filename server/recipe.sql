@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS recipe (
 );
 
 --     "INSERT INTO recipe(recipeName, recipeDescription, recipeIngredients, recipeInstructions, recipeImage) VALUES (?,?,?,?,?)";
--- Förrätt = blue, Varmrätt = green, Efterrätt = yellow
+-- Förrätt = gul, Varmrätt = lila, Efterrätt = blå
 INSERT INTO recipe (recipeName, recipeDescription, recipeIngredients, recipeInstructions) VALUES ('Kokt ägg','Varmrätt','Ägg ,vatten och salt', 'Koka ägget i 8 min');
 
 INSERT INTO recipe (recipeName, recipeDescription, recipeIngredients, recipeInstructions) VALUES ('Köttbullar med mos','Varmrätt','1½dl mjölk, 5msk ströbröd, 500g Köttfärs, ½ gul lök, 1 ägg, 1krm peppar, 1tsk salt, ½tsk socker, smör eller margarin, Potatis, mjölk', 'Blanda mjölk och ströbröd. Låt svälla i 10 minuter. Tillsätt färs, lök, ägg, salt, peppar och socker i ströbrödsblandningen. Arbeta ihop färsen ordentligt. Fukta händerna med kallt vatten och forma köttbullar. Stek några i taget i matfett, skaka pannan då och då så att köttbullarna rullar runt och håller sig runda. Skala potatis och koka den. När de är färdigkokta, tillsätt mjölk och lite salt och mosa potatisarna till en jämn yta');

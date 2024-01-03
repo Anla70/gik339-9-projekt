@@ -2,6 +2,7 @@
   font-size: 2rem;
   color: lightcoral;
   text-align: center;
+  font-family: Lucida Handwriting, Cursive;
 }
 
 ul {
@@ -19,11 +20,13 @@ li {
   box-sizing: border-box;
   padding: 1rem;
   margin-top: 1rem;
+  margin-right: 2rem;
   border: 1px solid rgba(122, 121, 121, 0.815);
+  background: rgb(251, 252, 253);
 }
 .container {
   box-sizing: border-box;
-  background: rgb(241, 241, 241);
+  /* background: rgb(241, 241, 241); */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,9 +40,9 @@ li {
   border: 3px;
   background: rgb(241, 241, 241);
 }
-#submitRecipeBtn {
+/* #submitRecipeBtn {
   width: 10rem;
-}
+} */
 
 #addRecipeForm {
   display: flex;
@@ -52,17 +55,5 @@ li {
   padding: 8px;
 }
 .form-check-input {
-  margin-right: 2px; /* Eller annat önskat värde */
+  margin-right: 2px;
 }
-
-/* :root {
-  background-color: rgb(32, 145, 145);
-}
-
-.container {
-  background-color: #ffffff;
-}
-
-.rubrik {
-  color: lightcoral;
-} */
