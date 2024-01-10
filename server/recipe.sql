@@ -7,8 +7,8 @@ CREATE TABLE IF NOT EXISTS recipe (
   ,recipeInstructions TEXT NOT NULL
 );
 
---     "INSERT INTO recipe(recipeName, recipeDescription, recipeIngredients, recipeInstructions, recipeImage) VALUES (?,?,?,?,?)";
--- Förrätt = gul, Varmrätt = lila, Efterrätt = blå
+
+
 INSERT INTO recipe (recipeName, recipeDescription, recipeIngredients, recipeInstructions) VALUES ();
 
 

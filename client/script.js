@@ -6,6 +6,7 @@ let isUpdating = false;
 let updatingRecipeId = null;
 let deleteRecipeId = null;
 let deleteRecipeName = null;
+
 // Funktion för att visa modalen för uppdaterat recept
 function showUpdateModal() {
   var updateModal = new bootstrap.Modal(document.getElementById("updateModal"));
@@ -23,7 +24,7 @@ function confirmDeleteRecipe(id) {
   fetch(`${url}/${id}`)
     .then((response) => response.json())
     .then((data) => {
-      deleteRecipeName = data.recipeName; // Spara receptnamnet
+      deleteRecipeName = data.recipeName;
       document.getElementById(
         "deleteConfirmModalBody"
       ).innerHTML = `Vill du verkligen ta bort receptet "${data.recipeName}"?`;
@@ -178,8 +179,6 @@ function deleteRecipe(id) {
       document.getElementById(
         "deleteConfirmationModalBody"
       ).innerHTML = `Receptet "${deleteRecipeName}" är nu borttaget`;
-      // test
-      console.log("Test", data);
       showDeleteConfirmation();
       fetchAndDisplayRecipes();
     })
