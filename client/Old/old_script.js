@@ -1,5 +1,5 @@
 // Definierar vår URL till API-servern
-const url = "http://localhost:4000/recipe";
+const url = "http://localhost:3000/recipe";
 
 // Variabler för att hantera uppdatering och borttagning av våra recept
 let isUpdating = false;
@@ -20,9 +20,17 @@ function showAddedModal() {
 
 // Funktion för att visa bekräftelsemodalen för borttagning av recept
 function confirmDeleteRecipe(id) {
-  deleteRecipeId = id;
-  var deleteConfirmModal = new bootstrap.Modal(document.getElementById("deleteConfirmModal"));
-  deleteConfirmModal.show();
+  fetch(`${url}/${id}`)
+    .then((response) => response.json())
+    .then((data) => {
+      document.getElementById(
+        "deleteConfirmModalBody"
+      ).innerHTML = `Vill du verkligen ta bort receptet "${data.recipeName}" med recept nr: ${id}?`;
+      deleteRecipeId = id;
+      var deleteConfirmModal = new bootstrap.Modal(document.getElementById("deleteConfirmModal"));
+      deleteConfirmModal.show();
+    })
+    .catch((error) => console.error("Error:", error));
 }
 
 // Funktion för att förbereda uppdatering av ett recept
@@ -47,7 +55,7 @@ function prepareUpdateRecipe(id) {
     .catch((error) => console.error("Error:", error));
 }
 
-// Händelsehanterare för Uppdatera-knappen
+// Händelsehanterare för "Uppdatera dina ändringar"-knappen
 document.getElementById("updateRecipeBtn").addEventListener("click", function (e) {
   e.preventDefault();
   if (!isUpdating || !updatingRecipeId) return;
@@ -107,10 +115,10 @@ document.getElementById("addRecipeForm").addEventListener("submit", function (e)
     .then((response) => response.json())
     .then((data) => {
       console.log("Success:", data);
-      // Uppdaterar modalen med det nya receptets information
+      // Uppdatera modalen med det nya receptets information
       document.getElementById(
         "addedModalBody"
-      ).innerHTML = `Receptet "${recipeData.recipeName}" har lagts till och har recept nr: ${data.id}`;
+      ).innerHTML = `Receptet "${recipeData.recipeName}" har lagts till och har fått recept nr: ${data.id}`;
       showAddedModal();
       resetFormAndButtons();
       fetchAndDisplayRecipes();
@@ -153,6 +161,39 @@ function fetchAndDisplayRecipes() {
     .catch((error) => console.error("Error:", error));
 }
 
+// Händelsehanterare för "Ja"-knappen i bekräftelsemodalen
+document.getElementById("confirmDeleteBtn").addEventListener("click", function () {
+  if (deleteRecipeId !== null) {
+    deleteRecipe(deleteRecipeId);
+  }
+});
+
+// Funktion för att ta bort ett recept och visa bekräftelse
+function deleteRecipe(id) {
+  fetch(`${url}/${id}`, { method: "DELETE" })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Recept borttaget:", data);
+      // Stänger den första modalen direkt så att den inte syns när den andra modalen visas
+      var deleteConfirmModal = document.getElementById("deleteConfirmModal");
+      var modalBootstrap = bootstrap.Modal.getInstance(deleteConfirmModal);
+      modalBootstrap.hide();
+      // Visar bekräftelsemodalen
+      document.getElementById(
+        "deleteConfirmationModalBody"
+      ).innerHTML = `Receptet "${data.recipeName}" med recept nr: ${id} är nu borttaget ur databasen`;
+      showDeleteConfirmation();
+      fetchAndDisplayRecipes();
+    })
+    .catch((error) => console.error("Error:", error));
+}
+
+// Funktion för att visa bekräftelsemodalen för borttagning
+function showDeleteConfirmation() {
+  var deleteConfirmationModal = new bootstrap.Modal(document.getElementById("deleteConfirmationModal"));
+  deleteConfirmationModal.show();
+}
+
 // Funktion för att använda vår färgkodning baserat på recepttyp
 function getColorForRecipeType(description) {
   if (description.includes("Förrätt")) {
@@ -164,34 +205,6 @@ function getColorForRecipeType(description) {
   } else {
     return "gray";
   }
-}
-// Händelsehanterare för Ja-knappen i bekräftelsemodalen
-document.getElementById("confirmDeleteBtn").addEventListener("click", function () {
-  if (deleteRecipeId !== null) {
-    deleteRecipe(deleteRecipeId);
-    // Stänger den första modalen direkt
-    var deleteConfirmModal = document.getElementById("deleteConfirmModal");
-    var modalBootstrap = bootstrap.Modal.getInstance(deleteConfirmModal);
-    modalBootstrap.hide();
-  }
-});
-
-// Funktion för att ta bort ett recept och visa bekräftelse
-function deleteRecipe(id) {
-  fetch(`${url}/${id}`, { method: "DELETE" })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Recept borttaget:", data);
-      fetchAndDisplayRecipes();
-      showDeleteConfirmation();
-    })
-    .catch((error) => console.error("Error:", error));
-}
-
-// Funktion för att visa bekräftelsemodalen för borttagning
-function showDeleteConfirmation() {
-  var deleteConfirmationModal = new bootstrap.Modal(document.getElementById("deleteConfirmationModal"));
-  deleteConfirmationModal.show();
 }
 
 // Laddar receptlistan när sidan laddas

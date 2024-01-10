@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grupp 9 - Projektarbete</title>
+    <link rel="stylesheet" href="base.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <h2 class="headLine">Recept</h2>
+    <!-- Formulär för att lägga till ett nytt recept -->
+    <div class="form-container">
+      <form id="addRecipeForm">
+        <h3 class="Add">Lägg till ett nytt recept</h3>
+        <!-- Inmatningsfält för receptnamn -->
+        <input type="text" id="recipeName" placeholder="Receptnamn" required />
+        <!-- Inmatningsfält för ingredienser -->
+        <textarea id="recipeIngredients" placeholder="Ingredienser" required></textarea>
+        <!-- Inmatningsfält för instruktioner -->
+        <textarea id="recipeInstructions" placeholder="Instruktioner" required></textarea>
+        <!-- Radioknappar för att välja typ av recept (Förrätt, Varmrätt, Efterrätt) -->
+        <div class="row">
+          <div class="col">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="RadioStarter" value="Förrätt" />
+              <label class="form-check-label" for="RadioStarter">Förrätt</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="RadioMain" value="Varmrätt" />
+              <label class="form-check-label" for="RadioMain">Varmrätt</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="flexRadioDefault"
+                id="RadioDessert"
+                value="Efterrätt"
+              />
+              <label class="form-check-label" for="RadioDessert">Efterrätt</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Knapp för att lägga till recept -->
+        <button type="submit" id="submitRecipeBtn" class="btn btn-primary">Lägg till recept</button>
+
+        <!-- Knapp för att uppdatera recept, initialt dold -->
+        <button type="submit" id="updateRecipeBtn" class="btn btn-primary" style="display: none">
+          Uppdatera dina ändringar
+        </button>
+
+        <!-- Container för att visa listan med recept -->
+        <div class="container"></div>
+      </form>
+      
+<!-- Modal för tillagt recept-->
+<div class="modal fade" id="addedModal" tabindex="-1" aria-labelledby="addedModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold" id="addedModalLabel">Nytt recept</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="addedModalBody">
+         <!-- Dynamiskt innehåll (receptinformation) från script-filen läggs in här -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Stäng</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Modal för uppdaterat recept -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold" id="updateModalLabel">Uppdaterat recept</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="updateModalBody">
+        <!-- Dynamiskt innehåll (receptinformation) från script-filen läggs in här -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Stäng</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+     <!-- Modal för borttagning av ett recept -->
+     <div
+     class="modal fade"
+     id="deleteConfirmModal"
+     tabindex="-1"
+     aria-labelledby="deleteConfirmModalLabel"
+     aria-hidden="true"
+   >
+     <div class="modal-dialog">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title fw-bold" id="deleteConfirmModalLabel">Ta bort recept</h5>
+           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body" id="deleteConfirmModalBody">
+           <!-- Dynamiskt innehåll som uppdateras via JavaScript -->
+         </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Nej</button>
+           <button type="button" class="btn btn-success" id="confirmDeleteBtn">Ja</button>
+         </div>
+       </div>
+     </div>
+   </div>
+
+   <!-- Modal för bekräftelse av borttagning -->
+   <div
+     class="modal fade"
+     id="deleteConfirmationModal"
+     tabindex="-1"
+     aria-labelledby="deleteConfirmationModalLabel"
+     aria-hidden="true"
+   >
+     <div class="modal-dialog">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title fw-bold" id="deleteConfirmationModalLabel">Bekräftelse borttaget recept</h5>
+           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body" id="deleteConfirmationModalBody">
+           <!-- Dynamiskt innehåll som uppdateras via JavaScript -->
+         </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Stäng</button>
+         </div>
+       </div>
+     </div>
+   </div>
+
+    <!-- JavaScript-fil för att hantera frontend-logik -->
+    <script src="script_copy_2.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
+

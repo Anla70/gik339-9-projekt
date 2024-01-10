@@ -1,7 +1,5 @@
 .headLine {
-  font-size: 2rem;
   color: lightcoral;
-  text-align: center;
   font-family: Lucida Handwriting, Cursive;
 }
 
@@ -10,6 +8,8 @@ ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  width: auto;
+  margin-right: 2rem;
 }
 
 .add {
@@ -23,26 +23,25 @@ li {
   margin-right: 2rem;
   border: 1px solid rgba(122, 121, 121, 0.815);
   background: rgb(251, 252, 253);
+  width: 100%;
+  word-wrap: break-word;
 }
+
 .container {
   box-sizing: border-box;
-  /* background: rgb(241, 241, 241); */
   display: flex;
+  width: 90%;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
 }
 .form-container {
   box-sizing: border-box;
-
+  width: 100%;
   margin: auto;
   padding: 15px;
   border: 3px;
   background: rgb(241, 241, 241);
 }
-/* #submitRecipeBtn {
-  width: 10rem;
-} */
 
 #addRecipeForm {
   display: flex;

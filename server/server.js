@@ -79,10 +79,8 @@ server.put("/recipe/:id", (req, res) => {
 server.delete("/recipe/:id", (req, res) => {
   db.run("DELETE FROM recipe WHERE id = ?", req.params.id, function (err) {
     if (err) {
-      console.log("Test för att se om vi når fram.", data); // ************** Tas bort senare ********
       res.status(500).send(err.message);
     } else {
-      console.log("Recept borttaget.", data); // ************** Tas bort senare ********
       res.send({ message: "Receptet är borttaget" });
     }
   });
