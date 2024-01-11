@@ -19,81 +19,6 @@ function showAddedModal() {
   addedModal.show();
 }
 
-// Funktion för att visa bekräftelsemodalen för borttagning av recept
-function confirmDeleteRecipe(id) {
-  fetch(`${url}/${id}`)
-    .then((response) => response.json())
-    .then((data) => {
-      deleteRecipeName = data.recipeName;
-      document.getElementById(
-        "deleteConfirmModalBody"
-      ).innerHTML = `Vill du verkligen ta bort receptet "${data.recipeName}"?`;
-      deleteRecipeId = id;
-      var deleteConfirmModal = new bootstrap.Modal(document.getElementById("deleteConfirmModal"));
-      deleteConfirmModal.show();
-    })
-    .catch((error) => console.error("Error:", error));
-}
-
-// Funktion för att förbereda uppdatering av ett recept
-function prepareUpdateRecipe(id) {
-  isUpdating = true;
-  updatingRecipeId = id;
-
-  document.getElementById("updateRecipeBtn").style.display = "block";
-  document.getElementById("submitRecipeBtn").style.display = "none";
-
-  fetch(`${url}/${id}`)
-    .then((response) => response.json())
-    .then((data) => {
-      document.getElementById("recipeName").value = data.recipeName;
-      document.getElementById("recipeIngredients").value = data.recipeIngredients;
-      document.getElementById("recipeInstructions").value = data.recipeInstructions;
-      document.querySelector(`input[name="flexRadioDefault"][value="${data.recipeDescription}"]`).checked = true;
-
-      const form = document.getElementById("addRecipeForm");
-      form.scrollIntoView({ behavior: "smooth" });
-    })
-    .catch((error) => console.error("Error:", error));
-}
-
-// Händelsehanterare för "Uppdatera dina ändringar"-knappen
-document.getElementById("updateRecipeBtn").addEventListener("click", function (e) {
-  e.preventDefault();
-  if (!isUpdating || !updatingRecipeId) return;
-
-  const recipeData = {
-    recipeName: document.getElementById("recipeName").value,
-    recipeIngredients: document.getElementById("recipeIngredients").value,
-    recipeInstructions: document.getElementById("recipeInstructions").value,
-    recipeDescription: document.querySelector('input[name="flexRadioDefault"]:checked').value,
-  };
-
-  fetch(`${url}/${updatingRecipeId}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(recipeData),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Recept uppdaterat:", data);
-      document.getElementById("updateModalBody").innerHTML = `Receptet "${recipeData.recipeName}"har uppdaterats`;
-      showUpdateModal();
-      resetFormAndButtons();
-      fetchAndDisplayRecipes();
-    })
-    .catch((error) => console.error("Error:", error));
-});
-
-// Återställer formuläret och knapparna
-function resetFormAndButtons() {
-  document.getElementById("addRecipeForm").reset();
-  document.getElementById("updateRecipeBtn").style.display = "none";
-  document.getElementById("submitRecipeBtn").style.display = "block";
-  isUpdating = false;
-  updatingRecipeId = null;
-}
-
 // Händelsehanterare för att lägga till ett nytt recept
 document.getElementById("addRecipeForm").addEventListener("submit", function (e) {
   e.preventDefault();
@@ -158,19 +83,72 @@ function fetchAndDisplayRecipes() {
     .catch((error) => console.error("Error:", error));
 }
 
-// Händelsehanterare för "Ja"-knappen i bekräftelsemodalen
-document.getElementById("confirmDeleteBtn").addEventListener("click", function () {
-  if (deleteRecipeId !== null) {
-    deleteRecipe(deleteRecipeId);
-  }
+// Funktion för att förbereda uppdatering av ett recept
+function prepareUpdateRecipe(id) {
+  isUpdating = true;
+  updatingRecipeId = id;
+
+  document.getElementById("updateRecipeBtn").style.display = "block";
+  document.getElementById("submitRecipeBtn").style.display = "none";
+
+  fetch(`${url}/${id}`)
+    .then((response) => response.json())
+    .then((data) => {
+      document.getElementById("recipeName").value = data.recipeName;
+      document.getElementById("recipeIngredients").value = data.recipeIngredients;
+      document.getElementById("recipeInstructions").value = data.recipeInstructions;
+      document.querySelector(`input[name="flexRadioDefault"][value="${data.recipeDescription}"]`).checked = true;
+
+      const form = document.getElementById("addRecipeForm");
+      form.scrollIntoView({ behavior: "smooth" });
+    })
+    .catch((error) => console.error("Error:", error));
+}
+
+// Händelsehanterare för "Uppdatera"-knappen
+document.getElementById("updateRecipeBtn").addEventListener("click", function (e) {
+  e.preventDefault();
+  if (!isUpdating || !updatingRecipeId) return;
+
+  const recipeData = {
+    recipeName: document.getElementById("recipeName").value,
+    recipeIngredients: document.getElementById("recipeIngredients").value,
+    recipeInstructions: document.getElementById("recipeInstructions").value,
+    recipeDescription: document.querySelector('input[name="flexRadioDefault"]:checked').value,
+  };
+
+  fetch(`${url}/${updatingRecipeId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(recipeData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Recept uppdaterat:", data);
+      document.getElementById("updateModalBody").innerHTML = `Receptet "${recipeData.recipeName}"har uppdaterats`;
+      showUpdateModal();
+      resetFormAndButtons();
+      fetchAndDisplayRecipes();
+    })
+    .catch((error) => console.error("Error:", error));
 });
+
+// Återställer formuläret och knapparna
+function resetFormAndButtons() {
+  document.getElementById("addRecipeForm").reset();
+  document.getElementById("updateRecipeBtn").style.display = "none";
+  document.getElementById("submitRecipeBtn").style.display = "block";
+  isUpdating = false;
+  updatingRecipeId = null;
+}
 
 // Funktion för att ta bort ett recept och visa bekräftelse
 function deleteRecipe(id) {
   fetch(`${url}/${id}`, { method: "DELETE" })
     .then((response) => response.json())
     .then((data) => {
-      console.log("Recept borttaget:", data);
+      //console.log("Recept borttaget:", data); *********
+
       // Stänger den första modalen direkt så att den inte syns när den andra modalen visas
       var deleteConfirmModal = document.getElementById("deleteConfirmModal");
       var modalBootstrap = bootstrap.Modal.getInstance(deleteConfirmModal);
@@ -184,6 +162,29 @@ function deleteRecipe(id) {
     })
     .catch((error) => console.error("Error:", error));
 }
+
+// Funktion för att visa bekräftelsemodalen för borttagning av recept
+function confirmDeleteRecipe(id) {
+  fetch(`${url}/${id}`)
+    .then((response) => response.json())
+    .then((data) => {
+      deleteRecipeName = data.recipeName;
+      document.getElementById(
+        "deleteConfirmModalBody"
+      ).innerHTML = `Vill du verkligen ta bort receptet "${data.recipeName}"?`;
+      deleteRecipeId = id;
+      var deleteConfirmModal = new bootstrap.Modal(document.getElementById("deleteConfirmModal"));
+      deleteConfirmModal.show();
+    })
+    .catch((error) => console.error("Error:", error));
+}
+
+// Händelsehanterare för "Ja"-knappen i bekräftelsemodalen
+document.getElementById("confirmDeleteBtn").addEventListener("click", function () {
+  if (deleteRecipeId !== null) {
+    deleteRecipe(deleteRecipeId);
+  }
+});
 
 // Funktion för att visa bekräftelsemodalen för borttagning
 function showDeleteConfirmation() {
