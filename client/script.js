@@ -7,18 +7,6 @@ let updatingRecipeId = null;
 let deleteRecipeId = null;
 let deleteRecipeName = null;
 
-// Funktion för att visa modalen för uppdaterat recept
-function showUpdateModal() {
-  var updateModal = new bootstrap.Modal(document.getElementById("updateModal"));
-  updateModal.show();
-}
-
-// Funktion för att visa modalen för tillagt recept
-function showAddedModal() {
-  var addedModal = new bootstrap.Modal(document.getElementById("addedModal"));
-  addedModal.show();
-}
-
 // Händelsehanterare för att lägga till ett nytt recept
 document.getElementById("addRecipeForm").addEventListener("submit", function (e) {
   e.preventDefault();
@@ -48,6 +36,12 @@ document.getElementById("addRecipeForm").addEventListener("submit", function (e)
     })
     .catch((error) => console.error("Error:", error));
 });
+
+// Funktion för att visa modalen för tillagt recept
+function showAddedModal() {
+  var addedModal = new bootstrap.Modal(document.getElementById("addedModal"));
+  addedModal.show();
+}
 
 // Funktion för att hämta och visa receptlistan
 function fetchAndDisplayRecipes() {
@@ -132,6 +126,12 @@ document.getElementById("updateRecipeBtn").addEventListener("click", function (e
     })
     .catch((error) => console.error("Error:", error));
 });
+
+// Funktion för att visa modalen för uppdaterat recept
+function showUpdateModal() {
+  var updateModal = new bootstrap.Modal(document.getElementById("updateModal"));
+  updateModal.show();
+}
 
 // Återställer formuläret och knapparna
 function resetFormAndButtons() {
