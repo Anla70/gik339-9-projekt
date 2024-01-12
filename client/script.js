@@ -147,8 +147,6 @@ function deleteRecipe(id) {
   fetch(`${url}/${id}`, { method: "DELETE" })
     .then((response) => response.json())
     .then((data) => {
-      //console.log("Recept borttaget:", data); *********
-
       // Stänger den första modalen direkt så att den inte syns när den andra modalen visas
       var deleteConfirmModal = document.getElementById("deleteConfirmModal");
       var modalBootstrap = bootstrap.Modal.getInstance(deleteConfirmModal);

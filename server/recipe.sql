@@ -7,10 +7,4 @@ CREATE TABLE IF NOT EXISTS recipe (
   ,recipeInstructions TEXT NOT NULL
 );
 
-
-
-INSERT INTO recipe (recipeName, recipeDescription, recipeIngredients, recipeInstructions) VALUES ();
-
-
-
-select * from recipe ;
+select * from recipe;
